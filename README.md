@@ -1,8 +1,6 @@
 # Private Blockchain Application
 
-You are starting your journey as a Blockchain Developer. This project allows you
-to demonstrate that you are familiar with the fundamental concepts of a
-Blockchain platform.
+Demonstrate familiarity with the fundamental concepts of a Blockchain platform.
 Concepts like: - Block - Blockchain - Wallet - Blockchain - Identity - Proof of Existence.
 
 These are some of the most important components in the Blockchain Framework that
