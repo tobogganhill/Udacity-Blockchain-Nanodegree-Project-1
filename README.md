@@ -1,12 +1,12 @@
 # Private Blockchain Application
 
 You are starting your journey as a Blockchain Developer. This project allows you
-to demonstrate that you are familiar with the fundamentals concepts of a
-Blockchain platform. Concepts like: - Block - Blockchain - Wallet - Blockchain
-Identity - Proof of Existance.
+to demonstrate that you are familiar with the fundamental concepts of a
+Blockchain platform.
+Concepts like: - Block - Blockchain - Wallet - Blockchain - Identity - Proof of Existence.
 
 These are some of the most important components in the Blockchain Framework that
-you will need to describe and also why not? Implement too.
+you will need to describe and implement.
 
 In this project you will have boilerplate code with a REST Api already setup to
 expose some of the functionalities you will implement in your private
@@ -19,19 +19,19 @@ application can be implemented in his company. He is an astronomy fan and he
 spends most of his free time searching stars in the sky, that's why he would
 like to create a test application that will allow him to register stars, and
 also other friends can register stars too, making sure the application knows who
-owns each star.
+registered each star.
 
-### What is the process describe by the employer to be implemented in the application?
+### What is the process described by the employer to be implemented in the application?
 
-1. The application will create a Genesis Block when we run the application.
+1. The application will create a Genesis Block when the application first runs.
 2. The user will request the application to send a message to be signed using a
    Wallet and in this way verify the ownership over the wallet address. The
    message format will be:
    `<WALLET_ADRESS>:${new Date().getTime().toString().slice(0,-3)}:starRegistry`;
-3. Once the user have the message the user can use a Wallet to sign the message.
-4. The user will try to submit the Star object for that it will submit:
+3. Once the user has the message, the user can utilize a Wallet to sign the message.
+4. The user will submit the Star object in the following format:
    `wallet address`, `message`, `signature` and the `star` object with the star
-   information. The Start information will be formed in this format:
+   information. The Star information will be formed in this format:
    ```json
        "star": {
            "dec": "68° 52' 56.9",
@@ -42,19 +42,19 @@ owns each star.
 5. The application will verify if the time elapsed from the request ownership
    (the time is contained in the message) and the time when you submit the star
    is less than 5 minutes.
-6. If everything is okay the star information will be stored in the block and
+6. If everything is okay, the star information will be stored in the block and
    added to the `chain`
 7. The application will allow us to retrieve the Star objects belong to an owner
    (wallet address).
 
 ## What tools or technologies you will use to create this application?
 
-- This application will be created using Node.js and Javascript programming
+- This application will be created using Node.js and the Javascript programming
   language. The architecture will use ES6 classes because it will help us to
-  organize the code and facilitate the maintnance of the code.
-- The company suggest to use Visual Studio Code as an IDE to write your code
+  organize the code and facilitate the maintenance of the code.
+- The company suggests using VS Code as the IDE to write your code
   because it will help you debug the code easily but you can choose the code
-  editor you feel confortable with.
+  editor you feel comfortable with.
 - Some of the libraries or npm modules you will use are:
   - "bitcoinjs-lib": "^4.0.3",
   - "bitcoinjs-message": "^2.0.0",
@@ -82,50 +82,49 @@ Libraries purpose:
 ## Understanding the boilerplate code
 
 The Boilerplate code is a simple architecture for a Blockchain application, it
-includes a REST APIs application to expose the your Blockchain application
+includes a REST APIs application to expose the Blockchain application
 methods to your client applications or users.
 
 1. `app.js` file. It contains the configuration and initialization of the REST
-   Api, the team who provide this boilerplate code suggest do not change this
+   Api, the team who provided this boilerplate code suggests not to change this
    code because it is already tested and works as expected.
 2. `BlockchainController.js` file. It contains the routes of the REST Api. Those
-   are the methods that expose the urls you will need to call when make a
+   are the methods that expose the urls you will need to call when making a
    request to the application.
-3. `src` folder. In here we are going to have the main two classes we needed to
+3. `src` folder. In here we are going to have the main two classes needed to
    create our Blockchain application, we are going to create a `block.js` file
    and a `blockchain.js` file that will contain the `Block` and `BlockChain`
    classes.
 
 ### Starting with the boilerplate code:
 
-First thing first, we are going to download or clone our boilerplate code.
+Download or clone the boilerplate code.
 
-Then we need to install all the libraries and module dependencies, to do that:
+Then install all the libraries and module dependencies, to do that:
 open a terminal and run the command `npm install`
 
 **( Remember to be able to work on this project you will need to have installed
-in your computer Node.js and npm )**
+on your computer Node.js and npm )**
 
-At this point we are ready to run our project for first time, use the command:
+At this point we are ready to run our project for the first time, using the command:
 `node app.js`
 
-You can check in your terminal the the Express application is listening in the
-PORT 8000
+Check in your terminal that the Express application is listening on PORT 8000
 
 ## What do I need to implement to satisfy my employer requirements?
 
 1.  `block.js` file. In the `Block` class we are going to implement the method:
     `validate()`. /\*\*
-    - The `validate()` method will validate if the block has been tampered or
+    - The `validate()` method will validate if the block has been tampered with or
       not.
     - Been tampered means that someone from outside the application tried to
       change
-    - values in the block data as a consecuence the hash of the block should be
+    - values in the block data as a consequence the hash of the block should be
       different.
     - Steps:
-    - 1. Return a new promise to allow the method be called asynchronous.
-    - 2. Save the in auxiliary variable the current hash of the block (`this`
-         represent the block object)
+    - 1. Return a new promise to allow the method to be called asynchronously.
+    - 2. Save in an auxiliary variable the current hash of the block (`this`
+         represents the block object)
     - 3. Recalculate the hash of the entire block (Use SHA256 from crypto-js
          library)
     - 4. Compare if the auxiliary hash value is different from the calculated
@@ -153,8 +152,7 @@ PORT 8000
     - or reject if an error happen during the execution.
     - You will need to check for the height to assign the `previousBlockHash`,
     - assign the `timestamp` and the correct `height`...At the end you need to
-    - create the `block hash` and push the block into the chain array. Don't for
-      get
+    - create the `block hash` and push the block into the chain array. Don't forget
     - to update the `this.height`
     - Note: the symbol `_` in the method name indicates in the javascript
       convention
@@ -211,7 +209,7 @@ PORT 8000
 
 ## How to test your application functionalities?
 
-To test your application I recommend you to use POSTMAN, this tool will help you
+To test your application I recommend POSTMAN, this tool will help you
 to make the requests to the API. Always is useful to debug your code see what is
 happening in your algorithm, so I will let you this video for you to check on
 how to do it >https://www.youtube.com/watch?v=6cOsxaNC06c . Try always to debug
