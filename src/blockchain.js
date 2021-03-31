@@ -5,7 +5,7 @@
  *  It uses libraries like 'crypto-js' to create hashes for each block and 'bitcoinjs-message'
  *  to verify a message signature. The chain is stored in the array 'this.chain = []'.
  *  Each time the application is run, the chain will be empty since an array
- *  is not a persistent storage method.
+ *  is not a persistent storage method. Would need to store in a database to persist.
  *
  */
 
@@ -16,11 +16,10 @@ const bitcoinMessage = require('bitcoinjs-message');
 
 class Blockchain {
 	/*
-	 * Constructor of the class. Setup the chain array and the height (the length of the chain array).
-	 * Every time you create a Blockchain class you will need to initialize the chain creating
-	 * the Genesis Block.
-	 * The methods in this class will always return a Promise to allow client applications, or
-	 * other backends to call asynchronous functions.
+	 * Class Constructor.
+	 * Setup the chain array and the height (length of the chain array).
+	 * Every time a Blockchain class is created, must initialize the chain with the Genesis Block.
+	 * The methods in this class always return a Promise to allow calling of asynchronous functions.
 	 */
 	constructor() {
 		this.chain = [];
@@ -29,9 +28,9 @@ class Blockchain {
 	}
 
 	/*
-	 * This method will check for the height of the chain and if the Genesis Block does not exist, it will create it.
-	 * Use the 'addBlock(block)' to create the Genesis Block
-	 * Passing as data '{data: 'Genesis Block'}'
+	 * method checks for the height of the chain and creates the Genesis Block if it does not exist.
+	 * 'addBlock(block)' creates the Genesis Block
+	 * Passing data '{data: 'Genesis Block'}'
 	 */
 	async initializeChain() {
 		if (this.height === -1) {
@@ -42,7 +41,7 @@ class Blockchain {
 	}
 
 	/*
-	 * Utility method that return a Promise that will resolve with the height of the chain
+	 * method to return a Promise resolving with the chain height
 	 */
 	getChainHeight() {
 		return new Promise((resolve, reject) => {
@@ -51,17 +50,15 @@ class Blockchain {
 	}
 
 	/*
-	 * _addBlock(block) will store a block in the chain
+	 * _addBlock(block) adds a block to the chain
 	 *
-	 * @param {*} block
-	 *
-	 * The method will return a Promise that will resolve with the block added
-	 * or rejected if an error happens during the execution.
+	 * The method will return a Promise that resolves with the block added
+	 * or rejected if an error happens during execution.
 	 * Check for the height to assign the 'previousBlockHash',
 	 * assign the 'timestamp' and the correct 'height'. Finally, create the 'block hash'
-	 * and push the block into the chain array. Don't forget to update the 'this.height'
+	 * and push the block into the chain array. Update 'this.height'
 	 * Note: the symbol '_' in the method name indicates in the javascript convention
-	 * that the method is private.
+	 * for a private method.
 	 */
 
 	_addBlock(block) {
@@ -89,7 +86,12 @@ class Blockchain {
 				// add block to chain
 				this.chain.push(block);
 				this.height = this.chain.length - 1;
-				return block;
+				// validate chain
+				return new Promise(async (resolve, reject) => {
+					(await this.validateChain())
+						? resolve(block)
+						: reject(new Error('Blockchain validation failed'));
+				});
 			});
 	}
 
@@ -221,7 +223,7 @@ class Blockchain {
 			for (let block of self.chain) {
 				if (await block.validate()) {
 					if (block.height > 0) {
-						// skip genesis block
+						// skip the genesis block
 						let prevBlock = self.chain.filter(
 							(b) => b.height === block.height - 1
 						)[0];
