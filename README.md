@@ -26,7 +26,7 @@ registered each star.
    Wallet and in this way verify the ownership over the wallet address. The
    message format will be:
    `<WALLET_ADRESS>:${new Date().getTime().toString().slice(0,-3)}:starRegistry`;
-3. Once the user has the message, the user can utilize a Wallet to sign the message.
+3. Once the user has the message, the user can utilize a Wallet, like Electrum, to sign the message.
 4. The user will submit the Star object in the following format:
    `wallet address`, `message`, `signature` and the `star` object with the star
    information. The Star information will be formed in this format:
